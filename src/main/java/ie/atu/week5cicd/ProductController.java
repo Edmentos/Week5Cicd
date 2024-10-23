@@ -20,30 +20,18 @@ public class ProductController {
     @PostMapping("/newProduct")
     public List<Product> newProduct(@Valid @RequestBody Product product)
     {
-        //Business logic to add this to a database
-        //ProductService myProduct = new ProductService();
-        //myList = myProduct.addProduct(product);
-        //Return a list of all the products from the database
         return myProduct.addProduct(product);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<List> updateProduct(@PathVariable int id, @RequestBody Product product)
+    public List<Product> updateProduct(@PathVariable int id, @RequestBody Product product)
     {
-        for(int i = 0; i< myList.size(); i++){
-            if(myList.get(i).getId() == id){
-                myList.set(i, product);
-            }
-        }
-        return ResponseEntity.ok(myList);
+        return myProduct.putProduct(product,id);
     }
 
-    @DeleteMapping("deleteProduct/{id}")
-    public ResponseEntity deleteProduct(@PathVariable long id){int num = (int) id;
+    @DeleteMapping("/{id}")
+    public List<Product> deleteProduct(@PathVariable int id)
+    {
 
-        for (int count = 0; count < myList.size(); count++)
-        {
-            if (myList.get(count).getId() == num){myList.remove(count);}
-        }
-        return ResponseEntity.ok(myList);
+        return myProduct.deleteProduct(id);
     }
 }
